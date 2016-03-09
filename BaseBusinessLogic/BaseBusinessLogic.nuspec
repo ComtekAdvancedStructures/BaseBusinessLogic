@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>$id$</id>
+    <version>$version$</version>
+    <title>$title$</title>
+    <authors>Craig Verburgh</authors>
+    <owners>Comtek Advanced Structures</owners>
+    <licenseUrl>http://www.comtekadvanced.com</licenseUrl>
+    <projectUrl>https://www.github.com/comtekadvanced</projectUrl>
+    <iconUrl>http://www.comtekadvanced.com</iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>The base Business Logic class. All other business logic classes will inherit from this one.</description>
+    <releaseNotes>Initial Release</releaseNotes>
+    <copyright>Copyright 2016</copyright>
+    <tags>BaseBusinessLogic base business logic</tags>
+  </metadata>
+</package>
