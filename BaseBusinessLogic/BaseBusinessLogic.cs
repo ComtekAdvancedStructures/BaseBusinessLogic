@@ -15,7 +15,7 @@ namespace Comtek
             successMessage = $"Changes saved to {appName} database";
             failMessage = $"There was an error saving the changes to the {appName} database.";
         }  
-
+         
         public DataOperationResult Save()
         {
             var result = new DataOperationResult();
