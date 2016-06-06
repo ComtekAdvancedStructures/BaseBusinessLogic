@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Data.Entity;
+using System.Data.Entity.Validation;
 using Comtek.Helpers;
 
 namespace Comtek
@@ -24,6 +25,20 @@ namespace Comtek
                 Context.SaveChanges();
                 result.Success = true;
                 result.Messages.Add(successMessage);
+            }
+            catch (DbEntityValidationException e)
+            {
+                result.Success = false;
+                result.Messages.Add(failMessage);
+                foreach (var eve in e.EntityValidationErrors)
+                {
+                    result.Messages.Add(
+                        $"Entity of type \"{eve.Entry.Entity.GetType().Name}\" in state \"{eve.Entry.State}\" has the following validation errors:");
+                    foreach (var ve in eve.ValidationErrors)
+                    {
+                        result.Messages.Add($"- Property: \"{ve.PropertyName}\", Error: \"{ve.ErrorMessage}\"");
+                    }
+                }                
             }
             catch (Exception ex)
             {
