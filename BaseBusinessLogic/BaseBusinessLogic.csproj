@@ -62,9 +62,26 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-    <None Include="packages.config" />
+    <None Include="BaseBusinessLogic.nuspec" />
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include=".build\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>IF "$(ConfigurationName)" == "Release" (
+  CD /D $(ProjectDir)
+for /f "delims=" %25%25i in ('nuget list $(TargetName)') do set output=%25%25i
+  ECHO %25i
+  IF EXIST $(TargetName).@(VersionNumber)2.nupkg EXIT
+  nuget pack $(ProjectPath) -Properties Configuration=$(ConfigurationName) -Prop Platform=AnyCPU
+  IF EXIST "\\ckfilestore01\it\programming\nuget-repo\$(TargetName).$(VersionNumber).nupkg" EXIT
+  nuget push $(TargetName).@(VersionNumber).nupkg -s "\\ckfilestore01\it\programming\nuget-repo\"
+)</PostBuildEvent>
+  </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

@@ -5,14 +5,15 @@ using Comtek.Helpers;
 
 namespace Comtek
 {
-    public abstract class BaseBusinessLogic
+    public abstract class BaseBusinessLogic<T> where T : DbContext
     {
-        public DbContext Context;
         private readonly string successMessage;
         private readonly string failMessage;
+        public T Context { get; }
 
-        protected BaseBusinessLogic(string appName)
+        protected BaseBusinessLogic(T context, string appName)
         {
+            Context = context;
             successMessage = $"Changes saved to {appName} database";
             failMessage = $"There was an error saving the changes to the {appName} database.";
         }  
