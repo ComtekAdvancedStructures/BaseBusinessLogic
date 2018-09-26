@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Data.Entity;
 using System.Data.Entity.Validation;
+using System.Threading.Tasks;
 using Comtek.Helpers;
 
 namespace Comtek
@@ -50,12 +51,12 @@ namespace Comtek
             return result;
         }
 
-        public DataOperationResult SaveAsync()
+        public async Task<DataOperationResult> SaveAsync()
         {
             var result = new DataOperationResult();
             try
             {
-                Context.SaveChangesAsync();
+                await Context.SaveChangesAsync();
                 result.Success = true;
                 result.Messages.Add(successMessage);
             }
